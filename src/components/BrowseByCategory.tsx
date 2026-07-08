@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { categories } from "../data/categories";
 
 export default function BrowseByCategory() {
@@ -20,8 +21,9 @@ export default function BrowseByCategory() {
 
         {categories.map((category) => (
 
-          <div
+          <Link
             key={category.name}
+            to={`/cars/${encodeURIComponent(category.name)}`}
             className="
               bg-white
               rounded-3xl
@@ -32,6 +34,7 @@ export default function BrowseByCategory() {
               hover:-translate-y-1
               transition
               cursor-pointer
+              block
             "
           >
 
@@ -43,7 +46,7 @@ export default function BrowseByCategory() {
               {category.name}
             </h3>
 
-          </div>
+          </Link>
 
         ))}
 

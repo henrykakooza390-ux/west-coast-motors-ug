@@ -7,12 +7,14 @@ export const getFavorites = () => {
 };
 
 export const addToFavorites = (
-  vehicleId: string
+  vehicleId: string | number
 ) => {
+  const id = String(vehicleId);
+
   const favorites = getFavorites();
 
-  if (!favorites.includes(vehicleId)) {
-    favorites.push(vehicleId);
+  if (!favorites.includes(id)) {
+    favorites.push(id);
 
     localStorage.setItem(
       "carconnect-favorites",
@@ -22,10 +24,12 @@ export const addToFavorites = (
 };
 
 export const removeFromFavorites = (
-  vehicleId: string
+  vehicleId: string | number
 ) => {
+  const id = String(vehicleId);
+
   const favorites = getFavorites().filter(
-    (id: string) => id !== vehicleId
+    (fav: string) => fav !== id
   );
 
   localStorage.setItem(
@@ -35,7 +39,9 @@ export const removeFromFavorites = (
 };
 
 export const isFavorite = (
-  vehicleId: string
+  vehicleId: string | number
 ) => {
-  return getFavorites().includes(vehicleId);
+  return getFavorites().includes(
+    String(vehicleId)
+  );
 };

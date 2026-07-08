@@ -1,4 +1,5 @@
 import PageHeader from "../components/PageHeader";
+import siteConfig from "../config/siteConfig";
 import {
   getComparedVehicles,
   removeFromCompare,
@@ -22,7 +23,12 @@ export default function Compare() {
 
             <div className="bg-white rounded-3xl shadow-xl p-8 sm:p-16 text-center">
 
-              <h2 className="text-2xl sm:text-3xl font-black text-[#0A1E4D]">
+              <h2
+                className="text-2xl sm:text-3xl font-black"
+                style={{
+                  color: siteConfig.colors.secondary,
+                }}
+              >
                 No Vehicles Selected
               </h2>
 
@@ -37,12 +43,13 @@ export default function Compare() {
                   px-8
                   py-4
                   rounded-2xl
-                  bg-blue-600
-                  hover:bg-blue-700
                   text-white
                   font-bold
                   transition
                 "
+                style={{
+                  backgroundColor: siteConfig.colors.primary,
+                }}
               >
                 Browse Cars
               </Link>
@@ -72,7 +79,12 @@ export default function Compare() {
 
             <div>
 
-              <h2 className="text-3xl sm:text-4xl font-black text-[#0A1E4D]">
+              <h2
+                className="text-3xl sm:text-4xl font-black"
+                style={{
+                  color: siteConfig.colors.secondary,
+                }}
+              >
                 Comparison
               </h2>
 
@@ -88,8 +100,6 @@ export default function Compare() {
                 window.location.reload();
               }}
               className="
-                bg-red-600
-                hover:bg-red-700
                 text-white
                 px-6
                 py-3
@@ -99,6 +109,9 @@ export default function Compare() {
                 w-full
                 md:w-auto
               "
+              style={{
+                backgroundColor: siteConfig.colors.primary,
+              }}
             >
               Clear All
             </button>
@@ -140,11 +153,21 @@ export default function Compare() {
 
                 <div className="p-6">
 
-                  <h2 className="font-black text-2xl">
+                  <h2
+                    className="font-black text-2xl"
+                    style={{
+                      color: siteConfig.colors.secondary,
+                    }}
+                  >
                     {car.make} {car.model}
                   </h2>
 
-                  <p className="text-blue-600 font-black text-2xl mt-3">
+                  <p
+                    className="font-black text-2xl mt-3"
+                    style={{
+                      color: siteConfig.colors.primary,
+                    }}
+                  >
                     {car.price}
                   </p>
 
@@ -210,14 +233,15 @@ export default function Compare() {
                     className="
                       mt-8
                       w-full
-                      bg-red-500
-                      hover:bg-red-600
                       text-white
                       py-3
                       rounded-2xl
                       font-bold
                       transition
                     "
+                    style={{
+                      backgroundColor: siteConfig.colors.primary,
+                    }}
                   >
                     Remove
                   </button>

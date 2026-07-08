@@ -51,9 +51,9 @@ export function VehiclesProvider({
       q,
       (snapshot) => {
         const data = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
+  ...doc.data(),
+  id: doc.id,
+}));
 
         setVehicles(data);
         setLoading(false);

@@ -49,21 +49,25 @@ export default function BestDeals() {
   };
 
   return (
-    <section className="max-w-7xl mx-auto px-4 md:px-6 py-14 md:py-20">
+    <section className="max-w-7xl mx-auto px-4 md:px-6 py-20">
 
-      <div className="flex items-center justify-between mb-8 md:mb-10">
-        <div>
-          <p className="text-blue-600 font-semibold">
-            Special Offers
-          </p>
+      {/* HEADER */}
+      <div className="mb-12">
 
-          <h2 className="text-3xl md:text-4xl font-bold">
-            Best Deals
-          </h2>
-        </div>
+        <p className="text-[#B91C1C] font-bold tracking-[3px] uppercase">
+          Exclusive Offers
+        </p>
+
+        <h2 className="text-4xl md:text-5xl font-black text-[#111111] mt-2">
+          Best Deals
+        </h2>
+
+        <div className="w-24 h-1 bg-[#B91C1C] rounded-full mt-4" />
+
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {/* GRID */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
         {deals.map((car: any) => (
 
@@ -71,53 +75,77 @@ export default function BestDeals() {
             key={car.id}
             to={`/vehicle/${car.id}`}
             className="
-              relative
+              group
               bg-white
-              rounded-3xl
+              rounded-[30px]
               overflow-hidden
-              shadow-lg
-              hover:shadow-2xl
+              border
+              border-gray-200
+              shadow-premium
+              hover:shadow-luxury
               hover:-translate-y-2
-              transition
+              transition-all
+              duration-500
             "
           >
 
-            <div className="relative">
+            {/* IMAGE */}
+            <div className="relative overflow-hidden">
 
               <img
                 src={car.image}
-                className="w-full h-56 object-cover"
+                alt={`${car.make} ${car.model}`}
+                className="
+                  w-full
+                  h-64
+                  object-cover
+                  group-hover:scale-110
+                  transition
+                  duration-700
+                "
               />
 
+              {/* DARK GRADIENT */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+
+              {/* BEST DEAL */}
               <span
                 className="
                   absolute
-                  top-4
-                  left-4
-                  bg-red-500
+                  top-5
+                  left-5
+                  bg-[#B91C1C]
                   text-white
-                  px-3
-                  py-1
+                  px-4
+                  py-2
                   rounded-full
                   text-xs
                   font-bold
+                  shadow-lg
                 "
               >
                 BEST DEAL
               </span>
 
+              {/* FAVORITES */}
               <button
                 onClick={(e) =>
                   toggleFavorite(e, car.id)
                 }
                 className="
                   absolute
-                  top-4
-                  right-4
-                  bg-white
-                  p-2
+                  top-5
+                  right-5
+                  w-11
+                  h-11
                   rounded-full
-                  shadow
+                  bg-white/95
+                  backdrop-blur-xl
+                  shadow-lg
+                  flex
+                  items-center
+                  justify-center
+                  hover:scale-110
                   active:scale-95
                   transition
                 "
@@ -126,28 +154,68 @@ export default function BestDeals() {
                   size={18}
                   className={
                     isFavorite(car.id)
-                      ? "fill-red-500 text-red-500"
+                      ? "fill-[#B91C1C] text-[#B91C1C]"
                       : "text-gray-500"
                   }
                 />
               </button>
 
+              {/* SOLD */}
+              {car.status === "sold" && (
+                <span
+                  className="
+                    absolute
+                    bottom-5
+                    left-5
+                    bg-black
+                    text-white
+                    px-4
+                    py-2
+                    rounded-full
+                    text-xs
+                    font-bold
+                  "
+                >
+                  SOLD
+                </span>
+              )}
             </div>
 
-            <div className="p-5">
+            {/* CONTENT */}
+            <div className="p-6">
 
-              <h3 className="font-bold text-xl">
+              <h3 className="font-black text-2xl text-[#111111]">
                 {car.make} {car.model}
               </h3>
 
-              <p className="text-gray-500 mt-1">
+              <p className="text-gray-500 mt-2">
                 {car.location}
               </p>
 
-              <p className="text-blue-600 font-bold text-lg mt-3">
-                {car.price}
-              </p>
+              <div className="mt-5 flex items-center justify-between">
 
+                <p className="text-[#B91C1C] text-2xl font-black">
+                  {car.price}
+                </p>
+
+                {car.verified && (
+                  <span
+                    className="
+                      bg-green-100
+                      text-green-700
+                      px-3
+                      py-1
+                      rounded-full
+                      text-xs
+                      font-bold
+                    "
+                  >
+                    VERIFIED
+                  </span>
+                )}
+              </div>
+
+              {/* COMPARE BUTTON */}
               <button
                 onClick={(e) => {
                   e.preventDefault();
@@ -161,31 +229,33 @@ export default function BestDeals() {
                   forceUpdate({});
                 }}
                 className={`
-                  mt-4
+                  mt-6
                   w-full
-                  py-3
-                  rounded-xl
-                  font-semibold
-                  active:scale-95
-                  transition
+                  py-4
+                  rounded-2xl
+                  font-bold
+                  transition-all
+                  duration-300
                   ${
                     isInCompare(car.id)
-                      ? "bg-blue-600 text-white"
-                      : "bg-gray-200 hover:bg-gray-300"
+                      ? "bg-[#111111] text-white"
+                      : "bg-[#B91C1C] hover:bg-[#7F1D1D] text-white"
                   }
                 `}
               >
                 {isInCompare(car.id)
                   ? "✓ Added To Compare"
-                  : "Compare"}
+                  : "Compare Vehicle"}
               </button>
 
             </div>
 
           </Link>
+
         ))}
 
       </div>
+
     </section>
   );
 }

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import PageHeader from "../components/PageHeader";
 import { Link } from "react-router-dom";
 import { Heart } from "lucide-react";
+import siteConfig from "../config/siteConfig";
 import { getVehicles } from "../utils/vehicleStorage";
 import {
   getFavorites,
@@ -39,6 +40,7 @@ export default function Favorites() {
         "storage",
         handleStorage
       );
+
       window.removeEventListener(
         "favoritesUpdated",
         handleStorage
@@ -74,9 +76,11 @@ export default function Favorites() {
       />
 
       <section className="bg-gradient-to-b from-slate-50 to-white min-h-screen">
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
 
           {cars.length === 0 ? (
+
             <div className="bg-white rounded-3xl p-10 shadow text-center">
 
               <div className="flex justify-center mb-4">
@@ -86,7 +90,12 @@ export default function Favorites() {
                 />
               </div>
 
-              <h2 className="text-2xl font-bold">
+              <h2
+                className="text-2xl font-bold"
+                style={{
+                  color: siteConfig.colors.secondary,
+                }}
+              >
                 No favorites yet
               </h2>
 
@@ -100,22 +109,28 @@ export default function Favorites() {
                 className="
                   inline-block
                   mt-6
-                  bg-blue-600
-                  hover:bg-blue-700
                   text-white
                   px-6
                   py-3
                   rounded-xl
                   transition
                 "
+                style={{
+                  backgroundColor:
+                    siteConfig.colors.primary,
+                }}
               >
                 Browse Vehicles
               </Link>
+
             </div>
+
           ) : (
+
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
 
               {cars.map((car: any) => (
+
                 <div
                   key={car.id}
                   className="
@@ -127,6 +142,7 @@ export default function Favorites() {
                     transition
                   "
                 >
+
                   <div className="relative">
 
                     <img
@@ -161,11 +177,18 @@ export default function Favorites() {
                         className="fill-red-500 text-red-500"
                       />
                     </button>
+
                   </div>
 
                   <div className="p-5">
 
-                    <h3 className="font-bold text-lg">
+                    <h3
+                      className="font-bold text-lg"
+                      style={{
+                        color:
+                          siteConfig.colors.secondary,
+                      }}
+                    >
                       {car.make} {car.model}
                     </h3>
 
@@ -173,7 +196,13 @@ export default function Favorites() {
                       {car.location}
                     </p>
 
-                    <p className="text-blue-600 font-bold text-xl mt-3">
+                    <p
+                      className="font-bold text-xl mt-3"
+                      style={{
+                        color:
+                          siteConfig.colors.primary,
+                      }}
+                    >
                       {car.price}
                     </p>
 
@@ -183,8 +212,6 @@ export default function Favorites() {
                         to={`/vehicle/${car.id}`}
                         className="
                           flex-1
-                          bg-blue-600
-                          hover:bg-blue-700
                           text-white
                           py-3
                           rounded-xl
@@ -192,6 +219,10 @@ export default function Favorites() {
                           font-semibold
                           transition
                         "
+                        style={{
+                          backgroundColor:
+                            siteConfig.colors.primary,
+                        }}
                       >
                         View Vehicle
                       </Link>
@@ -202,12 +233,14 @@ export default function Favorites() {
                         }
                         className="
                           px-4
-                          bg-red-600
-                          hover:bg-red-700
                           text-white
                           rounded-xl
                           transition
                         "
+                        style={{
+                          backgroundColor:
+                            siteConfig.colors.primaryDark,
+                        }}
                       >
                         Remove
                       </button>
@@ -215,13 +248,17 @@ export default function Favorites() {
                     </div>
 
                   </div>
+
                 </div>
+
               ))}
 
             </div>
+
           )}
 
         </div>
+
       </section>
     </>
   );

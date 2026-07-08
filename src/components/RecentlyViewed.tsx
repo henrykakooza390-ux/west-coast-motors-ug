@@ -25,11 +25,11 @@ export default function RecentlyViewed() {
       {/* HEADER */}
       <div className="mb-8 md:mb-10">
 
-        <p className="text-blue-600 font-semibold text-sm uppercase tracking-wide">
+        <p className="text-brand-red font-semibold text-sm uppercase tracking-wide">
           Your History
         </p>
 
-        <h2 className="text-3xl md:text-4xl font-bold mt-2">
+        <h2 className="text-3xl md:text-4xl font-bold mt-2 text-brand-black">
           Recently Viewed
         </h2>
 
@@ -68,7 +68,7 @@ export default function RecentlyViewed() {
 
             <div className="p-5">
 
-              <h3 className="font-bold text-lg md:text-xl">
+              <h3 className="font-bold text-lg md:text-xl text-brand-black">
                 {car.make} {car.model}
               </h3>
 
@@ -76,7 +76,7 @@ export default function RecentlyViewed() {
                 {car.location}
               </p>
 
-              <p className="text-blue-600 font-bold mt-3 text-lg">
+              <p className="text-brand-red font-bold mt-3 text-lg">
                 {car.price}
               </p>
 

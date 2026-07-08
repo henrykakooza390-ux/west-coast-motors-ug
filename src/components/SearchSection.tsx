@@ -27,12 +27,13 @@ export default function SearchSection() {
     >
       <div
         className="
-        bg-white
-        rounded-[32px]
-        shadow-2xl
-        p-6 md:p-8
-        border border-gray-100
-        "
+bg-white/90
+backdrop-blur-premium
+rounded-[32px]
+shadow-luxury
+p-6 md:p-8
+border border-white/60
+"
       >
         <div
           className="
@@ -56,7 +57,7 @@ export default function SearchSection() {
             p-4
             focus:outline-none
             focus:ring-2
-            focus:ring-blue-500
+            focus:ring-brand-red
             transition
             "
           />
@@ -75,7 +76,7 @@ export default function SearchSection() {
             p-4
             focus:outline-none
             focus:ring-2
-            focus:ring-blue-500
+            focus:ring-brand-red
             transition
             "
           />
@@ -94,7 +95,7 @@ export default function SearchSection() {
             p-4
             focus:outline-none
             focus:ring-2
-            focus:ring-blue-500
+            focus:ring-brand-red
             transition
             "
           />
@@ -102,22 +103,23 @@ export default function SearchSection() {
           {/* BUTTON */}
 
           <button
-            onClick={handleSearch}
-            className="
-            bg-[#2563EB]
-            hover:bg-[#0A1E4D]
-            text-white
-            rounded-2xl
-            font-bold
-            px-8
-            py-4
-            shadow-lg
-            transition-all
-            duration-300
-            hover:scale-[1.02]
-            active:scale-95
-            "
-          >
+  onClick={handleSearch}
+  className="
+  bg-brand-red
+  hover:bg-brand-redDark
+  text-white
+  rounded-2xl
+  font-bold
+  px-8
+  py-4
+  shadow-premium
+  transition-all
+  duration-300
+  hover:shadow-luxury
+  hover:scale-[1.02]
+  active:scale-95
+  "
+>
             Search Cars
           </button>
         </div>

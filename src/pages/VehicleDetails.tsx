@@ -10,17 +10,36 @@ import {
   ChevronRight,
 } from "lucide-react";
 
+import siteConfig from "../config/siteConfig";
 import { useVehiclesContext } from "../context/VehiclesContext";
 import { addRecentlyViewed } from "../utils/recentlyViewed";
 import PageHeader from "../components/PageHeader";
 
 export default function VehicleDetails() {
   const { id } = useParams();
-
   const { vehicles, loading } = useVehiclesContext();
+
+  console.log(
+    "DETAIL PAGE PARAM:",
+    id
+  );
+
+  console.log(
+    "ALL VEHICLES:",
+    vehicles.map((v: any) => ({
+      id: v.id,
+      make: v.make,
+      model: v.model,
+    }))
+  );
 
   const vehicle = vehicles.find(
     (v: any) => String(v.id) === String(id)
+  );
+
+  console.log(
+    "FOUND VEHICLE:",
+    vehicle
   );
 
   useEffect(() => {
@@ -31,22 +50,31 @@ export default function VehicleDetails() {
 
   const [activeImage, setActiveImage] = useState(0);
   const [showLightbox, setShowLightbox] = useState(false);
-
   if (loading) {
     return (
-      <div className="p-10 text-center">
+      <div className="p-10 text-center text-gray-500">
         Loading...
       </div>
     );
   }
 
   if (!vehicle) {
-    return (
-      <div className="p-10 text-center">
-        Vehicle not found
-      </div>
-    );
-  }
+  console.error(
+    "VEHICLE NOT FOUND",
+    {
+      routeId: id,
+      availableIds: vehicles.map(
+        (v: any) => v.id
+      ),
+    }
+  );
+
+  return (
+    <div className="p-10 text-center text-gray-500">
+      Vehicle not found
+    </div>
+  );
+}
 
   const images =
     vehicle.images && vehicle.images.length > 0
@@ -90,7 +118,7 @@ export default function VehicleDetails() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-white via-gray-50 to-white">
 
       {/* LIGHTBOX */}
       {showLightbox && (
@@ -105,77 +133,86 @@ export default function VehicleDetails() {
 
           <button
             onClick={previousImage}
-            className="absolute left-2 md:left-6 text-white"
+            className="absolute left-4 text-white"
           >
-            <ChevronLeft size={40} />
+            <ChevronLeft size={44} />
           </button>
 
           <img
             src={images[activeImage]}
-            className="max-h-[90vh] max-w-[90vw] object-contain"
+            className="max-h-[90vh] max-w-[90vw] object-contain rounded-xl"
           />
 
           <button
             onClick={nextImage}
-            className="absolute right-2 md:right-6 text-white"
+            className="absolute right-4 text-white"
           >
-            <ChevronRight size={40} />
+            <ChevronRight size={44} />
           </button>
 
         </div>
       )}
 
-      <div className="max-w-7xl mx-auto px-4 md:px-6 py-8">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 py-10">
 
         <PageHeader
           title={`${vehicle.make} ${vehicle.model}`}
-          subtitle="Vehicle details and seller information"
+          subtitle="Premium vehicle details"
         />
 
-        {/* FEATURED IMAGE */}
-        <div className="
-            relative
-            w-full
-            aspect-[16/9]
-            bg-black
-            rounded-[24px]
-            md:rounded-[32px]
-            overflow-hidden
-            shadow-2xl
-            border border-white/20
-          "
-        >
+        {/* HERO IMAGE */}
+        <div className="relative w-full aspect-[16/9] rounded-[32px] overflow-hidden shadow-2xl border border-gray-200 bg-black">
+
           <img
             src={images[activeImage]}
             onClick={() => setShowLightbox(true)}
-            className="w-full h-full object-contain bg-black cursor-pointer"
+            className="w-full h-full object-contain cursor-pointer"
           />
+
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+
         </div>
 
         {/* THUMBNAILS */}
-        <div className="flex gap-3 mt-4 overflow-x-auto pb-2">
+        <div className="flex gap-3 mt-5 overflow-x-auto pb-2">
 
           {images.map((img: string, index: number) => (
             <img
               key={index}
               src={img}
               onClick={() => setActiveImage(index)}
-              className={`w-20 h-20 md:w-24 md:h-24 object-cover rounded-xl cursor-pointer border-2 flex-shrink-0 ${
+              className={`w-20 h-20 md:w-24 md:h-24 object-cover rounded-xl cursor-pointer border-2 transition ${
                 activeImage === index
-                  ? "border-blue-600"
+                  ? ""
                   : "border-transparent"
               }`}
+              style={{
+                borderColor:
+                  activeImage === index
+                    ? siteConfig.colors.primary
+                    : "transparent",
+              }}
             />
           ))}
 
         </div>
 
         {/* TITLE */}
-        <h1 className="text-3xl md:text-4xl font-black mt-8">
+        <h1
+          className="text-3xl md:text-5xl font-black mt-10"
+          style={{
+            color: siteConfig.colors.secondary,
+          }}
+        >
           {vehicle.make} {vehicle.model}
         </h1>
 
-        <p className="text-blue-600 text-2xl md:text-3xl font-black mt-3">
+        <p
+          className="text-3xl md:text-4xl font-black mt-3"
+          style={{
+            color: siteConfig.colors.primary,
+          }}
+        >
           {vehicle.price}
         </p>
 
@@ -184,11 +221,14 @@ export default function VehicleDetails() {
         </p>
 
         {/* ACTION BUTTONS */}
-        <div className="grid sm:grid-cols-2 lg:flex gap-4 mt-8">
+        <div className="grid sm:grid-cols-2 lg:flex gap-4 mt-10">
 
           <a
             href={`tel:${vehicle.phone || ""}`}
-            className="flex justify-center items-center gap-2 bg-[#2563EB] hover:bg-[#0A1E4D] text-white px-6 py-4 rounded-2xl font-bold transition"
+            className="flex justify-center items-center gap-2 text-white px-6 py-4 rounded-2xl font-bold shadow-lg transition"
+            style={{
+              backgroundColor: siteConfig.colors.primary,
+            }}
           >
             <Phone size={18} />
             Call Seller
@@ -206,7 +246,10 @@ export default function VehicleDetails() {
 
           <button
             onClick={shareVehicle}
-            className="flex justify-center items-center gap-2 border px-6 py-4 rounded-2xl"
+            className="flex justify-center items-center gap-2 bg-white border border-gray-200 px-6 py-4 rounded-2xl font-bold transition"
+            style={{
+              borderColor: "#E5E7EB",
+            }}
           >
             <Share2 size={18} />
             Share
@@ -214,7 +257,10 @@ export default function VehicleDetails() {
 
           <button
             onClick={copyLink}
-            className="flex justify-center items-center gap-2 border px-6 py-4 rounded-2xl"
+            className="flex justify-center items-center gap-2 bg-white border border-gray-200 px-6 py-4 rounded-2xl font-bold transition"
+            style={{
+              borderColor: "#E5E7EB",
+            }}
           >
             <Copy size={18} />
             Copy Link
@@ -223,7 +269,7 @@ export default function VehicleDetails() {
         </div>
 
         {/* SPECS */}
-        <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mt-10">
+        <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mt-12">
 
           {[
             ["Year", vehicle.year],
@@ -234,13 +280,18 @@ export default function VehicleDetails() {
           ].map(([label, value]) => (
             <div
               key={label}
-              className="bg-white p-5 rounded-3xl shadow-lg"
+              className="bg-white p-5 rounded-3xl shadow-lg border border-gray-100"
             >
               <p className="text-gray-500 text-sm">
                 {label}
               </p>
 
-              <h3 className="font-bold mt-1">
+              <h3
+                className="font-bold mt-1"
+                style={{
+                  color: siteConfig.colors.secondary,
+                }}
+              >
                 {value}
               </h3>
 
@@ -250,13 +301,18 @@ export default function VehicleDetails() {
         </div>
 
         {/* SELLER INFO */}
-        <div className="bg-white p-6 md:p-8 rounded-3xl shadow mt-10">
+        <div className="bg-white p-6 md:p-8 rounded-3xl shadow-lg border border-gray-100 mt-12">
 
-          <h2 className="text-2xl font-bold mb-5">
+          <h2
+            className="text-2xl font-bold mb-5"
+            style={{
+              color: siteConfig.colors.secondary,
+            }}
+          >
             Seller Information
           </h2>
 
-          <div className="space-y-3">
+          <div className="space-y-3 text-gray-600">
 
             <p><strong>Dealer:</strong> {vehicle.dealer || "Not provided"}</p>
             <p><strong>Phone:</strong> {vehicle.phone || "Not provided"}</p>
@@ -268,9 +324,14 @@ export default function VehicleDetails() {
         </div>
 
         {/* DESCRIPTION */}
-        <div className="bg-white p-6 md:p-8 rounded-3xl shadow mt-10">
+        <div className="bg-white p-6 md:p-8 rounded-3xl shadow-lg border border-gray-100 mt-10">
 
-          <h2 className="text-2xl font-bold mb-4">
+          <h2
+            className="text-2xl font-bold mb-4"
+            style={{
+              color: siteConfig.colors.secondary,
+            }}
+          >
             Description
           </h2>
 

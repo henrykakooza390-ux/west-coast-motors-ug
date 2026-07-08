@@ -10,105 +10,130 @@ export default function PageHeader({
   return (
     <section
       className="
-      relative
-      overflow-hidden
-      py-14
-      mb-12
+        relative
+        overflow-hidden
+        py-14
+        mb-12
       "
       style={{
-        background: `
-        linear-gradient(
-          135deg,
-          ${siteConfig.colors.dark},
-          ${siteConfig.colors.secondary}
-        )
-        `,
+        background: siteConfig.gradients.premium,
       }}
     >
-      {/* TOP RIGHT GLOW */}
+      {/* TOP RIGHT BRAND GLOW */}
       <div
         className="
-        absolute
-        -top-20
-        right-0
-        w-[350px]
-        h-[350px]
-        rounded-full
-        bg-blue-400/10
-        blur-[100px]
+          absolute
+          -top-20
+          right-0
+          w-[350px]
+          h-[350px]
+          rounded-full
+          blur-[100px]
         "
+        style={{
+          background: `${siteConfig.colors.primary}20`,
+        }}
       />
 
-      {/* LEFT GLOW */}
+      {/* LEFT BLACK DEPTH GLOW */}
       <div
         className="
-        absolute
-        left-0
-        bottom-0
-        w-[300px]
-        h-[300px]
-        rounded-full
-        bg-blue-600/10
-        blur-[120px]
+          absolute
+          left-0
+          bottom-0
+          w-[300px]
+          h-[300px]
+          rounded-full
+          blur-[120px]
         "
+        style={{
+          background: `${siteConfig.colors.secondary}40`,
+        }}
       />
 
-      {/* VIGNETTE */}
+      {/* PREMIUM VIGNETTE */}
       <div
         className="
-        absolute
-        inset-0
-        shadow-[inset_0_0_100px_rgba(0,0,0,0.35)]
+          absolute
+          inset-0
+          shadow-[inset_0_0_120px_rgba(0,0,0,0.45)]
         "
       />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
 
-        <div className="max-w-3xl">
+        {/* PREMIUM HEADER LAYOUT */}
+        <div className="flex flex-col md:flex-row items-start gap-8 md:gap-12">
 
-          <div
-            className="
-            inline-flex
-            px-4
-            py-2
-            rounded-full
-            border
-            border-white/15
-            bg-white/10
-            backdrop-blur-md
-            text-blue-100
-            text-sm
-            font-medium
-            mb-5
-            "
-          >
-            CarConnectUG
+          {/* LEFT LOGO ANCHOR */}
+          <div className="flex-shrink-0">
+            <img
+              src={siteConfig.logo}
+              alt={siteConfig.companyName}
+              className="
+                h-20
+                md:h-24
+                w-auto
+                object-contain
+                drop-shadow-xl
+                select-none
+              "
+            />
           </div>
 
-          <h1
-            className="
-            text-4xl
-            md:text-5xl
-            font-black
-            text-white
-            leading-tight
-            "
-          >
-            {title}
-          </h1>
+          {/* RIGHT CONTENT */}
+          <div className="flex-1 max-w-3xl">
 
-          {subtitle && (
-            <p
+            {/* BRAND BADGE */}
+            <div
               className="
-              mt-4
-              text-blue-100
-              text-lg
-              leading-relaxed
+                inline-flex
+                px-4
+                py-2
+                rounded-full
+                border
+                border-white/10
+                bg-white/10
+                backdrop-blur-md
+                text-white
+                text-sm
+                font-bold
+                tracking-[0.15em]
+                uppercase
+                mb-5
               "
             >
-              {subtitle}
-            </p>
-          )}
+              {siteConfig.companyName}
+            </div>
+
+            {/* PAGE TITLE */}
+            <h1
+              className="
+                text-4xl
+                md:text-5xl
+                font-black
+                text-white
+                leading-tight
+              "
+            >
+              {title}
+            </h1>
+
+            {/* SUBTITLE */}
+            {subtitle && (
+              <p
+                className="
+                  mt-4
+                  text-white/80
+                  text-lg
+                  leading-relaxed
+                "
+              >
+                {subtitle}
+              </p>
+            )}
+
+          </div>
 
         </div>
 

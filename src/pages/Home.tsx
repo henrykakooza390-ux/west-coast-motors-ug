@@ -10,77 +10,116 @@ import WhyChooseUs from "../components/WhyChooseUs";
 import Stats from "../components/Stats";
 import Footer from "../components/Footer";
 
+function PremiumDivider() {
+  return (
+    <div className="my-16 w-full">
+      <div className="flex h-14 w-full items-center bg-black">
+
+        {/* Brand */}
+        <div className="flex items-center whitespace-nowrap px-8">
+          <span
+            className="
+              text-base
+              md:text-lg
+              font-black
+              uppercase
+              tracking-[0.18em]
+              text-brand-red
+            "
+          >
+            West Coast Motors
+          </span>
+
+          <span
+            className="
+              ml-2
+              text-base
+              md:text-lg
+              font-black
+              uppercase
+              tracking-[0.18em]
+              text-white
+            "
+          >
+            UG
+          </span>
+        </div>
+
+        {/* Divider continues to the right */}
+        <div className="flex-1 h-full bg-black" />
+
+      </div>
+    </div>
+  );
+}
+
 export default function Home() {
   return (
     <div className="bg-white min-h-screen flex flex-col overflow-x-hidden">
 
       <NavBar />
 
-      {/* HERO */}
-      <Hero />
+      {/* PAGE OFFSET */}
+      <div className="pt-20">
 
-      {/* SEARCH */}
-      <div className="-mt-12 relative z-20">
-        <SearchSection />
+        {/* HERO */}
+        <Hero />
+
+        {/* SEARCH */}
+        <div className="-mt-12 relative z-20">
+          <SearchSection />
+        </div>
+
+        <main className="flex-1">
+
+          {/* CATEGORIES - WHITE */}
+          <section className="pt-16 bg-white">
+            <CategoryGrid />
+          </section>
+
+          <PremiumDivider />
+
+          {/* FEATURED - SLATE */}
+          <section className="pt-16 bg-slate-50">
+            <FeaturedCars />
+          </section>
+
+          <PremiumDivider />
+
+          {/* BEST DEALS - WHITE */}
+          <section className="pt-16 bg-white">
+            <BestDeals />
+          </section>
+
+          <PremiumDivider />
+
+          {/* LATEST ARRIVALS - SLATE */}
+          <section className="pt-16 bg-slate-50">
+            <LatestArrivals />
+          </section>
+
+          <PremiumDivider />
+
+          {/* RECENTLY VIEWED - WHITE */}
+          <section className="pt-16 bg-white">
+            <RecentlyViewed />
+          </section>
+
+          {/* WHY CHOOSE US - SLATE */}
+          <section className="mt-20 py-24 bg-slate-50">
+            <WhyChooseUs />
+          </section>
+
+          {/* STATS - WHITE */}
+          <section className="py-20 bg-white">
+            <Stats />
+          </section>
+
+        </main>
+
+        <Footer />
+
       </div>
-
-      {/* MAIN CONTENT */}
-      <main className="flex-1">
-
-        {/* CATEGORIES */}
-        <section className="pt-10">
-          <CategoryGrid />
-        </section>
-
-        {/* FEATURED */}
-        <section className="pt-10">
-          <FeaturedCars />
-        </section>
-
-        {/* BEST DEALS */}
-        <section className="pt-6">
-          <BestDeals />
-        </section>
-
-        {/* LATEST ARRIVALS */}
-        <section className="pt-6">
-          <LatestArrivals />
-        </section>
-
-        {/* RECENTLY VIEWED */}
-        <section className="pt-6">
-          <RecentlyViewed />
-        </section>
-
-        {/* WHY CHOOSE US */}
-        <section
-          className="
-          mt-20
-          py-24
-          bg-gradient-to-b
-          from-white
-          to-slate-50
-          "
-        >
-          <WhyChooseUs />
-        </section>
-
-        {/* STATS */}
-        <section
-          className="
-          py-20
-          bg-gradient-to-b
-          from-slate-50
-          to-white
-          "
-        >
-          <Stats />
-        </section>
-
-      </main>
-
-      <Footer />
-
     </div>
   );
 }

@@ -26,7 +26,6 @@ const rejectedRef = collection(db, "rejectedVehicles");
 HELPER: SAFE ID
 ========================= */
 
-const getId = (id: any) => String(id || "");
 
 /* =========================
 LIVE VEHICLES

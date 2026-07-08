@@ -100,7 +100,10 @@ export default function AdminLayout({
 
       {/* MOBILE TOP BAR */}
       <div className="md:hidden fixed top-0 left-0 right-0 bg-slate-950 text-white flex items-center justify-between p-4 z-50">
-        <h1 className="font-black">CarConnectUG</h1>
+
+        <h1 className="font-black text-brand-red">
+          CARCONNECTUG
+        </h1>
 
         <button onClick={() => setOpen(!open)}>
           {open ? <X /> : <Menu />}
@@ -129,14 +132,30 @@ export default function AdminLayout({
       >
 
         {/* LOGO */}
-        <div className="p-8 border-b border-slate-800 mt-14 md:mt-0">
-          <h1 className="text-3xl font-black">
-            CarConnectUG
-          </h1>
-          <p className="text-slate-400 mt-2 text-sm">
-            Premium Automotive Platform
-          </p>
-        </div>
+<div className="p-8 border-b border-slate-800 mt-14 md:mt-0">
+
+  <div className="flex justify-center mb-6">
+    <img
+      src="/admin-logo.png"
+      alt="West Coast Motors Admin"
+      className="h-20 w-auto object-contain"
+    />
+  </div>
+
+  <h1 className="text-3xl font-black uppercase leading-tight">
+    <span className="text-brand-red">
+      West Coast Motors
+    </span>{" "}
+    <span className="text-white">
+      UG
+    </span>
+  </h1>
+
+  <p className="text-brand-red font-semibold mt-2 text-sm">
+    PREMIUM AUTOMOTIVE PLATFORM
+  </p>
+
+</div>
 
         {/* NAV */}
         <nav className="flex-1 p-6 space-y-2">
@@ -184,9 +203,12 @@ export default function AdminLayout({
 
           <div className="bg-slate-900 rounded-2xl p-4">
 
-            <p className="font-semibold">Admin</p>
-            <p className="text-slate-400 text-sm">
-              CarConnectUG Owner
+            <p className="font-bold text-brand-red">
+              ADMIN
+            </p>
+
+            <p className="text-brand-red font-semibold text-sm">
+              WEST COAST MOTORS UG OWNER
             </p>
 
             <button

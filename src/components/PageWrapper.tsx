@@ -9,7 +9,7 @@ export default function PageWrapper({
     <div
       className="min-h-screen"
       style={{
-        background: `linear-gradient(180deg, ${siteConfig.colors.dark} 0%, #f8fafc 100%)`,
+        background: `linear-gradient(180deg, ${siteConfig.colors.primaryDark} 0%, #f8fafc 100%)`,
       }}
     >
       {children}

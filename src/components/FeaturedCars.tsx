@@ -59,137 +59,239 @@ export default function FeaturedCars() {
   };
 
   return (
-    <section className="max-w-7xl mx-auto px-4 py-20">
+    <section className="bg-gradient-to-b from-white via-gray-50 to-white py-24">
 
-      <h2 className="text-3xl font-bold mb-8">
-        Featured Cars
-      </h2>
+      <div className="max-w-7xl mx-auto px-4">
 
-      <div className="grid md:grid-cols-3 gap-6">
+        {/* HEADER */}
 
-        {cars.map((car) => (
+        <div className="mb-14">
 
-          <Link
-            key={car.id}
-            to={`/vehicle/${car.id}`}
-            className="
-              bg-white
-              rounded-2xl
-              shadow-lg
-              overflow-hidden
-              hover:shadow-2xl
-              transition
-            "
-          >
+          <p className="text-[#B91C1C] font-bold tracking-[0.3em] uppercase">
+            Premium Collection
+          </p>
 
-            <div className="relative">
+          <h2 className="text-4xl md:text-5xl font-black text-[#111111] mt-3">
+            Featured Vehicles
+          </h2>
 
-              <img
-                src={car.image}
-                alt={`${car.make} ${car.model}`}
-                className="h-56 w-full object-cover"
-              />
+          <p className="text-gray-500 mt-4 max-w-2xl">
+            Explore our hand-selected luxury and performance vehicles from
+            West Coast Motors UG.
+          </p>
 
-              {/* FAVORITE */}
-              <button
-                onClick={(e) =>
-                  toggleFavorite(e, car.id)
-                }
-                className="
-                  absolute
-                  top-4
-                  right-4
-                  bg-white
-                  p-2
-                  rounded-full
-                  shadow
-                  hover:scale-110
-                  active:scale-95
-                  transition
-                "
-              >
-                <Heart
-                  size={18}
-                  className={
-                    isFavorite(car.id)
-                      ? "fill-red-500 text-red-500"
-                      : "text-gray-500"
-                  }
+        </div>
+
+        {/* GRID */}
+
+        <div className="grid md:grid-cols-3 gap-8">
+
+          {cars.map((car) => (
+
+            <Link
+              key={car.id}
+              to={`/vehicle/${car.id}`}
+              className="
+                group
+                bg-white/90
+                backdrop-blur-xl
+                rounded-[30px]
+                overflow-hidden
+                border
+                border-gray-100
+                shadow-[0_20px_50px_rgba(0,0,0,.08)]
+                hover:shadow-[0_30px_70px_rgba(0,0,0,.18)]
+                hover:-translate-y-3
+                transition-all
+                duration-500
+              "
+            >
+
+              {/* IMAGE */}
+
+              <div className="relative overflow-hidden">
+
+                <img
+                  src={car.image}
+                  alt={`${car.make} ${car.model}`}
+                  className="
+                    h-64
+                    w-full
+                    object-cover
+                    transition
+                    duration-700
+                    group-hover:scale-110
+                  "
                 />
-              </button>
 
-              {/* VERIFIED */}
-              {car.verified && (
+                {/* CINEMATIC OVERLAY */}
+
+                <div
+                  className="
+                    absolute
+                    inset-0
+                    bg-gradient-to-t
+                    from-black/70
+                    via-black/20
+                    to-transparent
+                  "
+                />
+
+                {/* RED GLOW */}
+
+                <div
+                  className="
+                    absolute
+                    inset-0
+                    bg-[radial-gradient(circle_at_top_right,rgba(185,28,28,.25),transparent_35%)]
+                  "
+                />
+
+                {/* FAVORITE */}
+
+                <button
+                  onClick={(e) =>
+                    toggleFavorite(e, car.id)
+                  }
+                  className="
+                    absolute
+                    top-4
+                    right-4
+                    bg-white/90
+                    backdrop-blur-xl
+                    border
+                    border-white/40
+                    p-3
+                    rounded-full
+                    shadow-lg
+                    hover:scale-110
+                    active:scale-95
+                    transition
+                    z-20
+                  "
+                >
+                  <Heart
+                    size={18}
+                    className={
+                      isFavorite(car.id)
+                        ? "fill-red-600 text-red-600"
+                        : "text-gray-600"
+                    }
+                  />
+                </button>
+
+                {/* FEATURED */}
+
                 <span
                   className="
                     absolute
                     top-4
                     left-4
-                    bg-green-600
+                    bg-gradient-to-r
+                    from-[#111111]
+                    to-[#B91C1C]
                     text-white
-                    px-3
-                    py-1
+                    px-4
+                    py-2
                     rounded-full
                     text-xs
                     font-bold
+                    shadow-lg
                   "
                 >
-                  VERIFIED
+                  FEATURED
                 </span>
-              )}
-            </div>
 
-            <div className="p-4">
+                {/* VERIFIED */}
 
-              <h3 className="font-bold text-lg">
-                {car.make} {car.model}
-              </h3>
+                {car.verified && (
+                  <span
+                    className="
+                      absolute
+                      bottom-4
+                      left-4
+                      bg-green-600
+                      text-white
+                      px-4
+                      py-2
+                      rounded-full
+                      text-xs
+                      font-bold
+                      shadow-lg
+                    "
+                  >
+                    VERIFIED
+                  </span>
+                )}
 
-              <p className="text-blue-600 font-bold mt-2">
-                {car.price}
-              </p>
+              </div>
 
-              <p className="text-gray-500 mt-1">
-                {car.location}
-              </p>
+              {/* CONTENT */}
 
-              {/* COMPARE */}
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
+              <div className="p-6">
 
-                  if (isInCompare(car.id)) {
-                    removeFromCompare(car.id);
-                  } else {
-                    addToCompare(car);
-                  }
+                <h3 className="font-black text-2xl text-[#111111]">
+                  {car.make} {car.model}
+                </h3>
 
-                  forceUpdate({});
-                }}
-                className={`
-                  mt-4
-                  w-full
-                  py-3
-                  rounded-xl
-                  font-semibold
-                  active:scale-95
-                  transition
-                  ${
-                    isInCompare(car.id)
-                      ? "bg-blue-600 text-white"
-                      : "bg-gray-200 hover:bg-gray-300"
-                  }
-                `}
-              >
-                {isInCompare(car.id)
-                  ? "✓ Added To Compare"
-                  : "Compare"}
-              </button>
+                <p className="text-gray-500 mt-2">
+                  {car.location}
+                </p>
 
-            </div>
+                <div className="mt-5">
 
-          </Link>
-        ))}
+                  <p className="text-[#B91C1C] text-2xl font-black">
+                    {car.price}
+                  </p>
+
+                  <p className="text-xs text-gray-400 mt-1 uppercase tracking-widest">
+                    Luxury Collection
+                  </p>
+
+                </div>
+
+                {/* COMPARE */}
+
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+
+                    if (isInCompare(car.id)) {
+                      removeFromCompare(car.id);
+                    } else {
+                      addToCompare(car);
+                    }
+
+                    forceUpdate({});
+                  }}
+                  className={`
+                    mt-6
+                    w-full
+                    py-4
+                    rounded-2xl
+                    font-bold
+                    transition-all
+                    duration-300
+                    active:scale-95
+                    ${
+                      isInCompare(car.id)
+                        ? "bg-gradient-to-r from-[#111111] to-[#B91C1C] text-white shadow-lg"
+                        : "bg-gray-100 hover:bg-gray-200 text-[#111111]"
+                    }
+                  `}
+                >
+                  {isInCompare(car.id)
+                    ? "✓ Added To Compare"
+                    : "Compare"}
+                </button>
+
+              </div>
+
+            </Link>
+
+          ))}
+
+        </div>
 
       </div>
 

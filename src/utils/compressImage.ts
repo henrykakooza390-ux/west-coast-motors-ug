@@ -1,8 +1,8 @@
 export const compressImage = (
   file: File,
-  maxWidth = 1200,
-  quality = 0.7
-): Promise<string> => {
+  maxWidth = 1000,
+  quality = 0.55
+): Promise<File> => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
 
@@ -18,7 +18,7 @@ export const compressImage = (
         const ctx = canvas.getContext("2d");
 
         if (!ctx) {
-          reject("Canvas not supported");
+          reject(new Error("Canvas not supported"));
           return;
         }
 
@@ -26,7 +26,7 @@ export const compressImage = (
         let height = img.height;
 
         if (width > maxWidth) {
-          height *= maxWidth / width;
+          height = height * (maxWidth / width);
           width = maxWidth;
         }
 
@@ -35,14 +35,33 @@ export const compressImage = (
 
         ctx.drawImage(img, 0, 0, width, height);
 
-        resolve(
-          canvas.toDataURL("image/jpeg", quality)
+        canvas.toBlob(
+          (blob) => {
+            if (!blob) {
+              reject(new Error("Compression failed"));
+              return;
+            }
+
+            // Convert blob → File (IMPORTANT FIX)
+            const compressedFile = new File(
+              [blob],
+              file.name.replace(/\.[^/.]+$/, "") + ".jpg",
+              {
+                type: "image/jpeg",
+                lastModified: Date.now(),
+              }
+            );
+
+            resolve(compressedFile);
+          },
+          "image/jpeg",
+          quality
         );
       };
 
-      img.onerror = reject;
+      img.onerror = (err) => reject(err);
     };
 
-    reader.onerror = reject;
+    reader.onerror = (err) => reject(err);
   });
 };

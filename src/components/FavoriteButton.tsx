@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Heart } from "lucide-react";
 import {
   addToFavorites,
@@ -9,11 +9,17 @@ import {
 export default function FavoriteButton({
   vehicleId,
 }: {
-  vehicleId: number;
+  vehicleId: string | number;
 }) {
-  const [favorite, setFavorite] = useState(
-    isFavorite(vehicleId)
-  );
+  // force everything to string
+  const id = String(vehicleId);
+
+  const [favorite, setFavorite] =
+    useState(isFavorite(id));
+
+  useEffect(() => {
+    setFavorite(isFavorite(id));
+  }, [id]);
 
   const toggleFavorite = (
     e: React.MouseEvent
@@ -21,12 +27,43 @@ export default function FavoriteButton({
     e.preventDefault();
     e.stopPropagation();
 
-    if (favorite) {
-      removeFromFavorites(vehicleId);
-      setFavorite(false);
-    } else {
-      addToFavorites(vehicleId);
-      setFavorite(true);
+    try {
+      if (favorite) {
+        removeFromFavorites(id);
+        setFavorite(false);
+
+        console.log(
+          "[FAVORITES] removed",
+          id
+        );
+      } else {
+        addToFavorites(id);
+        setFavorite(true);
+
+        console.log(
+          "[FAVORITES] added",
+          id
+        );
+      }
+
+      // notify favorites page
+      window.dispatchEvent(
+        new CustomEvent(
+          "favoritesUpdated"
+        )
+      );
+
+      console.log(
+        "[FAVORITES STORAGE]",
+        localStorage.getItem(
+          "carconnect-favorites"
+        )
+      );
+    } catch (error) {
+      console.error(
+        "[FAVORITES ERROR]",
+        error
+      );
     }
   };
 

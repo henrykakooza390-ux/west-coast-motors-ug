@@ -1,4 +1,5 @@
 import PageHeader from "../components/PageHeader";
+import VehicleCard from "../components/VehicleCard";
 import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getVehicles } from "../utils/vehicleStorage";
@@ -6,8 +7,11 @@ import { getVehicles } from "../utils/vehicleStorage";
 export default function CarsByCategory() {
   const { bodyType } = useParams();
 
-  const [filteredCars, setFilteredCars] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [filteredCars, setFilteredCars] =
+    useState<any[]>([]);
+
+  const [loading, setLoading] =
+    useState(true);
 
   useEffect(() => {
     const load = async () => {
@@ -37,6 +41,18 @@ export default function CarsByCategory() {
     );
   }
 
+  filteredCars.forEach((car) => {
+  console.log(
+    "BODY:",
+    bodyType,
+    "ID:",
+    car.id,
+    "MAKE:",
+    car.make,
+    "MODEL:",
+    car.model
+  );
+});
   return (
     <>
       <PageHeader
@@ -50,7 +66,21 @@ export default function CarsByCategory() {
 
           <Link
             to="/"
-            className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-white shadow-md text-blue-600 font-semibold hover:shadow-xl transition mb-8"
+            className="
+              inline-flex
+              items-center
+              gap-2
+              px-5
+              py-3
+              rounded-2xl
+              bg-white
+              shadow-md
+              text-blue-600
+              font-semibold
+              hover:shadow-xl
+              transition
+              mb-8
+            "
           >
             ← Back Home
           </Link>
@@ -68,37 +98,13 @@ export default function CarsByCategory() {
               No Vehicles Found
             </div>
           ) : (
-            <div className="grid md:grid-cols-3 gap-6 mt-8">
+            <div className="grid md:grid-cols-3 gap-8 mt-8">
 
-              {filteredCars.map((car: any) => (
-                <Link
+              {filteredCars.map((car) => (
+                <VehicleCard
                   key={car.id}
-                  to={`/vehicle/${car.id}`}
-                  className="bg-white rounded-3xl shadow-lg overflow-hidden"
-                >
-
-                  <img
-                    src={car.image}
-                    className="h-52 w-full object-cover"
-                  />
-
-                  <div className="p-5">
-
-                    <h3 className="font-bold">
-                      {car.make} {car.model}
-                    </h3>
-
-                    <p className="text-gray-500">
-                      {car.location}
-                    </p>
-
-                    <p className="text-blue-600 font-bold mt-3">
-                      {car.price}
-                    </p>
-
-                  </div>
-
-                </Link>
+                  car={car}
+                />
               ))}
 
             </div>
