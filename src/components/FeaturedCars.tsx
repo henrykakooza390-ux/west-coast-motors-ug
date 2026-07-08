@@ -28,25 +28,6 @@ export default function FeaturedCars() {
     );
   }
 
-  const toggleFavorite = (
-    e: React.MouseEvent,
-    carId: string
-  ) => {
-    e.preventDefault();
-
-    if (isFavorite(carId)) {
-      removeFromFavorites(carId);
-    } else {
-      addToFavorites(carId);
-    }
-
-    window.dispatchEvent(
-      new CustomEvent("favoritesUpdated")
-    );
-
-    forceUpdate({});
-  };
-
   return (
     <section className="bg-gradient-to-b from-white via-gray-50 to-white py-24">
 
