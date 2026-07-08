@@ -34,21 +34,21 @@ export default function Hero() {
           {/* BRAND */}
           <div className="mb-6">
 
-            <h2
-              className="
+           <h2
+  className="
   text-4xl
   sm:text-5xl
   md:text-6xl
   lg:text-7xl
   xl:text-8xl
-  font-extrabold
+  font-black
   uppercase
   tracking-[0.10em]
   leading-none
   text-balance
   drop-shadow-lg
 "
-            >
+>
               <span className="text-brand-black">
                 WEST COAST MOTORS
               </span>

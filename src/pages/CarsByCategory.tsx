@@ -13,6 +13,9 @@ export default function CarsByCategory() {
   const [loading, setLoading] =
     useState(true);
 
+  const [, forceUpdate] =
+    useState({});
+
   useEffect(() => {
     const load = async () => {
       setLoading(true);
@@ -41,18 +44,6 @@ export default function CarsByCategory() {
     );
   }
 
-  filteredCars.forEach((car) => {
-  console.log(
-    "BODY:",
-    bodyType,
-    "ID:",
-    car.id,
-    "MAKE:",
-    car.make,
-    "MODEL:",
-    car.model
-  );
-});
   return (
     <>
       <PageHeader
@@ -98,12 +89,26 @@ export default function CarsByCategory() {
               No Vehicles Found
             </div>
           ) : (
-            <div className="grid md:grid-cols-3 gap-8 mt-8">
+            <div
+  className="
+    grid
+    grid-cols-2
+    min-[320px]:grid-cols-2
+    max-[379px]:grid-cols-1
+    md:grid-cols-3
+    gap-4
+    md:gap-8
+    mt-8
+  "
+>
 
               {filteredCars.map((car) => (
                 <VehicleCard
                   key={car.id}
                   car={car}
+                  forceUpdate={() =>
+                    forceUpdate({})
+                  }
                 />
               ))}
 

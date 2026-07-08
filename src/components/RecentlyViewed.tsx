@@ -1,9 +1,11 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
 import { getRecentlyViewed } from "../utils/recentlyViewed";
 import { useVehiclesContext } from "../context/VehiclesContext";
+import VehicleCard from "./VehicleCard";
 
 export default function RecentlyViewed() {
   const { vehicles: allVehicles, loading } = useVehiclesContext();
+  const [, forceUpdate] = useState({});
 
   const recentIds = getRecentlyViewed();
 
@@ -36,54 +38,24 @@ export default function RecentlyViewed() {
       </div>
 
       {/* GRID */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+      <div
+  className="
+    grid
+    grid-cols-2
+    min-[320px]:grid-cols-2
+    max-[379px]:grid-cols-1
+    lg:grid-cols-3
+    gap-4
+    md:gap-8
+  "
+>
 
         {vehicles.map((car: any) => (
-
-          <Link
+          <VehicleCard
             key={car.id}
-            to={`/vehicle/${car.id}`}
-            className="
-              bg-white
-              rounded-3xl
-              overflow-hidden
-              shadow-lg
-              hover:shadow-2xl
-              hover:-translate-y-2
-              transition-all
-              duration-300
-            "
-          >
-
-            <img
-              src={car.image}
-              alt={`${car.make} ${car.model}`}
-              className="
-                w-full
-                h-52
-                sm:h-56
-                object-cover
-              "
-            />
-
-            <div className="p-5">
-
-              <h3 className="font-bold text-lg md:text-xl text-brand-black">
-                {car.make} {car.model}
-              </h3>
-
-              <p className="text-gray-500 mt-1 text-sm md:text-base">
-                {car.location}
-              </p>
-
-              <p className="text-brand-red font-bold mt-3 text-lg">
-                {car.price}
-              </p>
-
-            </div>
-
-          </Link>
-
+            car={car}
+            forceUpdate={() => forceUpdate({})}
+          />
         ))}
 
       </div>

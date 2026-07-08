@@ -66,32 +66,35 @@ export default function NavBar() {
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
 
         {/* LOGO */}
-        <Link
-          to="/"
-          className="
-            flex
-            items-center
-            justify-center
-            h-full
-            min-w-[150px]
-          "
-        >
-          <img
-            src={siteConfig.logo}
-            alt={siteConfig.companyName}
-            className="
-              h-16
-              md:h-[72px]
-              lg:h-[76px]
-              w-auto
-              max-w-[200px]
-              object-contain
-              transition-all
-              duration-300
-              hover:scale-105
-            "
-          />
-        </Link>
+<Link
+  to="/"
+  className="
+    flex
+    items-center
+    h-full
+    w-[180px]
+    md:w-[210px]
+    lg:w-[240px]
+    overflow-hidden
+  "
+>
+  <img
+    src={siteConfig.logo}
+    alt={siteConfig.companyName}
+    className="
+      h-[82px]
+      md:h-[92px]
+      lg:h-[100px]
+      w-auto
+      max-w-none
+      object-contain
+      -translate-y-1
+      transition-all
+      duration-300
+      hover:scale-105
+    "
+  />
+</Link>
 
         {/* DESKTOP MENU */}
         <div className="hidden md:flex items-center gap-8 font-medium text-brand-black">

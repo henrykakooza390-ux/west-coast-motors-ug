@@ -68,19 +68,22 @@ export default function VehicleCard({
     );
   }}
       className="
-        group
-        bg-white/90
-        backdrop-blur-xl
-        rounded-[30px]
-        overflow-hidden
-        border
-        border-gray-100
-        shadow-[0_20px_50px_rgba(0,0,0,.08)]
-        hover:shadow-[0_30px_70px_rgba(0,0,0,.18)]
-        hover:-translate-y-3
-        transition-all
-        duration-500
-      "
+  group
+  bg-white/90
+  backdrop-blur-xl
+  rounded-2xl
+  sm:rounded-[30px]
+  overflow-hidden
+  border
+  border-gray-100
+  shadow-[0_12px_30px_rgba(0,0,0,.08)]
+  sm:shadow-[0_20px_50px_rgba(0,0,0,.08)]
+  hover:shadow-[0_30px_70px_rgba(0,0,0,.18)]
+  hover:-translate-y-2
+  sm:hover:-translate-y-3
+  transition-all
+  duration-500
+"
     >
       <div className="relative overflow-hidden">
 
@@ -88,13 +91,16 @@ export default function VehicleCard({
           src={car.image}
           alt={`${car.make} ${car.model}`}
           className="
-            h-64
-            w-full
-            object-cover
-            transition
-            duration-700
-            group-hover:scale-110
-          "
+  h-36
+  xs:h-40
+  sm:h-52
+  md:h-64
+  w-full
+  object-cover
+  transition
+  duration-700
+  group-hover:scale-110
+"
         />
 
         <div
@@ -120,13 +126,16 @@ export default function VehicleCard({
           onClick={toggleFavorite}
           className="
             absolute
-            top-4
-            right-4
+            top-2
+right-2
+sm:top-4
+sm:right-4
+p-2
+sm:p-3
             bg-white/90
             backdrop-blur-xl
             border
             border-white/40
-            p-3
             rounded-full
             shadow-lg
             hover:scale-110
@@ -136,7 +145,7 @@ export default function VehicleCard({
           "
         >
           <Heart
-            size={18}
+            size={16}
             className={
               isFavorite(car.id)
                 ? "fill-red-600 text-red-600"
@@ -149,16 +158,21 @@ export default function VehicleCard({
           <span
             className="
               absolute
-              top-4
-              left-4
+              top-2
+left-2
+sm:top-4
+sm:left-4
+px-2
+sm:px-4
+py-1
+sm:py-2
+text-[10px]
+sm:text-xs
               bg-gradient-to-r
               from-[#111111]
               to-[#B91C1C]
               text-white
-              px-4
-              py-2
               rounded-full
-              text-xs
               font-bold
               shadow-lg
             "
@@ -171,14 +185,19 @@ export default function VehicleCard({
           <span
             className="
               absolute
-              bottom-4
-              left-4
+              bottom-2
+left-2
+sm:bottom-4
+sm:left-4
+px-2
+sm:px-4
+py-1
+sm:py-2
+text-[10px]
+sm:text-xs
               bg-green-600
               text-white
-              px-4
-              py-2
               rounded-full
-              text-xs
               font-bold
               shadow-lg
             "
@@ -188,23 +207,52 @@ export default function VehicleCard({
         )}
       </div>
 
-      <div className="p-6">
+      <div className="p-3 sm:p-5 md:p-6">
 
-        <h3 className="font-black text-2xl text-[#111111]">
+        <h3 className="
+font-black
+text-sm
+sm:text-xl
+md:text-2xl
+text-[#111111]
+truncate
+">
           {car.make} {car.model}
         </h3>
 
-        <p className="text-gray-500 mt-2">
+        <p className="
+mt-1
+sm:mt-2
+text-xs
+sm:text-sm
+text-gray-500
+truncate
+">
           {car.location}
         </p>
 
         <div className="mt-5">
 
-          <p className="text-[#B91C1C] text-2xl font-black">
+          <p className="
+text-[#B91C1C]
+text-base
+sm:text-xl
+md:text-2xl
+font-black
+leading-tight
+">
             {car.price}
           </p>
 
-          <p className="text-xs text-gray-400 mt-1 uppercase tracking-widest">
+          <p className="
+text-[10px]
+sm:text-xs
+text-gray-400
+mt-1
+uppercase
+tracking-wide
+truncate
+">
             Luxury Collection
           </p>
 
@@ -213,11 +261,16 @@ export default function VehicleCard({
         <button
           onClick={toggleCompare}
           className={`
-            mt-6
+            mt-3
+sm:mt-6
+py-2.5
+sm:py-4
+rounded-xl
+sm:rounded-2xl
+text-xs
+sm:text-base
+font-bold
             w-full
-            py-4
-            rounded-2xl
-            font-bold
             transition-all
             duration-300
             active:scale-95
