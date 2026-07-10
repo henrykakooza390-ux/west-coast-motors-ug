@@ -1,5 +1,11 @@
 import { useVehiclesContext } from "../../context/VehiclesContext";
 
+import {
+  MapPin,
+  MoreVertical,
+  Bell,
+} from "lucide-react";
+
 export default function Dashboard() {
   const { vehicles, loading } = useVehiclesContext();
 
@@ -30,17 +36,66 @@ export default function Dashboard() {
   ).length;
 
   return (
-    <div className="min-h-screen bg-gray-100 px-4 md:px-8 py-6">
+    <div
+  className="
+    min-h-screen
+    bg-gray-100
+    px-4
+    md:px-8
+    pt-5
+    pb-8
+  "
+>
 
       <div className="max-w-7xl mx-auto">
 
-        <h1 className="text-3xl md:text-4xl font-bold mb-8">
-          Admin Dashboard
-        </h1>
+       <div className="flex items-start justify-between mb-6">
+
+  <div>
+
+    <p className="text-gray-500 text-sm">
+      Hello there!, Administrator 👋
+    </p>
+
+    <h1 className="text-3xl font-black mt-1">
+      Dashboard
+    </h1>
+
+  </div>
+
+  <button
+    className="
+      h-12
+      w-12
+      rounded-2xl
+      bg-white
+      shadow-lg
+      flex
+      items-center
+      justify-center
+      relative
+    "
+  >
+    <Bell size={20} />
+
+    <span
+      className="
+        absolute
+        top-2
+        right-2
+        h-2
+        w-2
+        rounded-full
+        bg-red-500
+      "
+    />
+  </button>
+
+</div>
 
         {/* STATS */}
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
+        <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
 
           <div className="bg-white rounded-3xl p-6 shadow-xl">
             <h3 className="text-gray-500 text-base">
@@ -96,11 +151,36 @@ export default function Dashboard() {
 
         {/* RECENT LISTINGS */}
 
-        <div className="bg-white rounded-3xl shadow-xl p-5 md:p-8 mt-10">
+        <div
+  className="
+    bg-white
+    rounded-3xl
+    shadow-lg
+    p-4
+    md:p-8
+    mt-8
+  "
+>
 
-          <h2 className="text-2xl font-bold mb-6">
-            Recent Listings
-          </h2>
+          <div className="flex items-center justify-between mb-5">
+
+  <h2 className="text-xl font-bold">
+    Recent Listings
+  </h2>
+
+  <button
+    className="
+      text-sm
+      font-semibold
+      text-blue-600
+      hover:text-brand-red
+      transition-colors
+    "
+  >
+    View all
+  </button>
+
+</div>
 
           <div className="space-y-5">
 
@@ -111,52 +191,100 @@ export default function Dashboard() {
               .map((vehicle: any) => (
 
                 <div
-                  key={vehicle.id}
-                  className="
-                  flex
-                  flex-col
-                  md:flex-row
-                  md:items-center
-                  md:justify-between
-                  border-b
-                  pb-5
-                  gap-3
-                "
-                >
+  key={vehicle.id}
+  className="
+    flex
+    items-center
+    justify-between
+    py-4
+    border-b
+    border-gray-100
+    last:border-0
+  "
+>
 
-                  <div>
+  <div className="flex-1 min-w-0">
 
-                    <h3 className="font-bold text-lg">
-                      {vehicle.make} {vehicle.model}
-                    </h3>
+    <h3 className="font-semibold text-gray-900 truncate">
+      {vehicle.make} {vehicle.model}
+    </h3>
 
-                    <p className="text-gray-500 text-sm mt-1">
-                      {vehicle.location}
-                    </p>
+    <div className="flex items-center gap-1 mt-1 text-gray-500 text-sm">
 
-                  </div>
+      <MapPin size={14} />
 
-                  <div className="md:text-right">
+      <span>{vehicle.location}</span>
 
-                    <p className="font-bold text-blue-600 text-lg">
-                      {vehicle.price}
-                    </p>
+    </div>
 
-                    {vehicle.status === "sold" && (
-                      <span className="text-xs text-red-500 font-semibold">
-                        SOLD
-                      </span>
-                    )}
+    <div className="mt-2">
 
-                    {vehicle.status === "archived" && (
-                      <span className="text-xs text-gray-500 font-semibold">
-                        ARCHIVED
-                      </span>
-                    )}
+      <span
+        className={`
+          inline-flex
+          items-center
+          rounded-full
+          px-2.5
+          py-1
+          text-xs
+          font-semibold
 
-                  </div>
+          ${
+            vehicle.status === "sold"
+              ? "bg-red-100 text-red-700"
+              : vehicle.status === "archived"
+              ? "bg-gray-100 text-gray-700"
+              : vehicle.verified
+              ? "bg-green-100 text-green-700"
+              : vehicle.featured
+              ? "bg-blue-100 text-blue-700"
+              : "bg-yellow-100 text-yellow-700"
+          }
+        `}
+      >
+        {vehicle.status === "sold"
+          ? "Sold"
+          : vehicle.status === "archived"
+          ? "Archived"
+          : vehicle.verified
+          ? "Verified"
+          : vehicle.featured
+          ? "Featured"
+          : "Pending"}
+      </span>
 
-                </div>
+    </div>
+
+  </div>
+
+  <div className="flex items-center gap-4 ml-4">
+
+    <div className="text-right">
+
+      <p className="font-bold text-blue-600 whitespace-nowrap">
+        {vehicle.price}
+      </p>
+
+    </div>
+
+    <button
+      className="
+        h-9
+        w-9
+        rounded-xl
+        hover:bg-gray-100
+        transition-colors
+        flex
+        items-center
+        justify-center
+      "
+    >
+      <MoreVertical size={18} />
+    </button>
+
+  </div>
+
+</div>
 
               ))}
 

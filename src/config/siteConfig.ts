@@ -52,19 +52,31 @@ const siteConfig = {
   favicon: "/favicon.ico",
 
   // BUSINESS
-  phone: "+256700000000",
-  whatsapp: "+256700000000",
+  phone: "+256772032515",
+  whatsapp: "+256701391601",
   email: "info@westcoastmotorsug.com",
   address: "Kampala, Uganda",
   country: "Uganda",
   currency: "UGX",
 
   // SOCIALS
-  social: {
+    social: {
     facebook: "",
     instagram: "",
     twitter: "",
     tiktok: "",
+  },
+
+  admin: {
+    subtitle: "Premium Auto",
+
+    sidebar: {
+      mobileLogoHeight: "h-12",
+      desktopLogoHeight: "h-20",
+
+      mobileWidth: "w-72",
+      desktopWidth: "w-72",
+    },
   },
 };
 

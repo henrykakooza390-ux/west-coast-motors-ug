@@ -1,4 +1,5 @@
-import { Link, useNavigate } from "react-router-dom";
+import siteConfig from "../config/siteConfig";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
   LayoutDashboard,
@@ -70,42 +71,91 @@ export default function AdminLayout({
     navigate("/");
   };
 
-  const NavItem = ({
-    to,
-    icon,
-    label,
-  }: {
-    to: string;
-    icon: React.ReactNode;
-    label: string;
-  }) => (
-    <Link
-      to={to}
-      onClick={() => setOpen(false)}
+const NavItem = ({
+  to,
+  icon,
+  label,
+}: {
+  to: string;
+  icon: React.ReactNode;
+  label: string;
+}) => (
+  <NavLink
+    to={to}
+    onClick={() => setOpen(false)}
+    className={({ isActive }) =>
+      `
+      group
+      flex
+      items-center
+      gap-4
+      rounded-2xl
+      px-4
+      py-3
+      font-medium
+      transition-all
+      duration-200
+      ${
+        isActive
+          ? "bg-brand-red text-white shadow-lg"
+          : "text-slate-300 hover:bg-white/5 hover:text-white"
+      }
+      `
+    }
+  >
+    <div
       className="
-        flex items-center gap-3
-        px-4 py-3
-        rounded-xl
-        hover:bg-slate-800
-        transition
+      flex
+      h-10
+      w-10
+      items-center
+      justify-center
+      rounded-xl
+      bg-white/5
+      transition-all
+      duration-200
+      group-hover:bg-white/10
       "
     >
       {icon}
-      {label}
-    </Link>
-  );
+    </div>
+
+    <span>{label}</span>
+  </NavLink>
+);
 
   return (
-    <div className="min-h-screen flex bg-gray-100">
+    <div className="flex h-screen bg-slate-100 overflow-hidden">
 
       {/* MOBILE TOP BAR */}
       <div className="md:hidden fixed top-0 left-0 right-0 bg-slate-950 text-white flex items-center justify-between p-4 z-50">
 
-        <h1 className="font-black text-brand-red">
-          CARCONNECTUG
-        </h1>
+        <div className="flex items-center gap-3">
 
-        <button onClick={() => setOpen(!open)}>
+  <img
+    src={siteConfig.adminLogo}
+    alt={siteConfig.companyName}
+    className="h-8 w-auto object-contain"
+  />
+
+  <div>
+
+    <h1 className="text-sm font-bold leading-none text-white">
+      {siteConfig.companyName}
+    </h1>
+
+    <p className="text-[10px] uppercase tracking-[0.2em] text-brand-red">
+      {siteConfig.admin.subtitle}
+    </p>
+
+  </div>
+
+</div>
+
+        <button
+  onClick={() => setOpen((prev) => !prev)}
+  className="p-1"
+>
           {open ? <X /> : <Menu />}
         </button>
       </div>
@@ -120,45 +170,93 @@ export default function AdminLayout({
 
       {/* SIDEBAR */}
       <aside
-        className={`
-          fixed md:static z-50
-          w-72 bg-slate-950 text-white
-          flex flex-col
-          border-r border-slate-800
-          h-full
-          transform transition-transform duration-300
-          ${open ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
-        `}
+   className={`
+fixed
+top-0
+left-0
+z-50
+h-screen
+w-72
+overflow-y-auto
+overflow-x-hidden
+bg-gradient-to-b
+from-slate-950
+via-slate-900
+to-slate-950
+border-r
+border-white/10
+shadow-xl
+text-white
+flex
+flex-col
+transition-transform
+duration-300
+ease-in-out
+
+transform
+
+${
+  open
+    ? "translate-x-0"
+    : "-translate-x-full"
+}
+
+lg:translate-x-0
+lg:static
+`}
       >
 
         {/* LOGO */}
-<div className="p-8 border-b border-slate-800 mt-14 md:mt-0">
+<div
+  className="
+    px-6
+    py-5
+    md:px-8
+    md:py-8
+    border-b
+    border-white/10
+    mt-14
+    md:mt-0
+  "
+>
 
   <div className="flex justify-center mb-6">
     <img
-      src="/admin-logo.png"
-      alt="West Coast Motors Admin"
-      className="h-20 w-auto object-contain"
-    />
+  src={siteConfig.adminLogo}
+  alt={siteConfig.companyName}
+  className="
+  h-12
+  md:h-20
+  w-auto
+  object-contain
+  mx-auto
+  "
+/>
   </div>
 
-  <h1 className="text-3xl font-black uppercase leading-tight">
-    <span className="text-brand-red">
-      West Coast Motors
-    </span>{" "}
-    <span className="text-white">
-      UG
-    </span>
-  </h1>
+  <h1 className="mt-6 text-center text-2xl font-black tracking-tight">
+    {siteConfig.companyName}
+</h1>
+
+<p className="mt-2 text-center text-xs uppercase tracking-[0.25em] text-brand-red font-semibold">
+    {siteConfig.tagline}
+</p>
 
   <p className="text-brand-red font-semibold mt-2 text-sm">
-    PREMIUM AUTOMOTIVE PLATFORM
+   westcoastmotorsug.com
   </p>
 
 </div>
 
         {/* NAV */}
-        <nav className="flex-1 p-6 space-y-2">
+        <nav
+  className="
+  flex-1
+  px-4
+  py-4
+  space-y-2
+  "
+>
 
           <NavItem
             to="/admin/dashboard"
@@ -199,12 +297,23 @@ export default function AdminLayout({
         </nav>
 
         {/* BOTTOM */}
-        <div className="p-6 border-t border-slate-800">
+<div className="border-t border-white/10 p-6">
 
-          <div className="bg-slate-900 rounded-2xl p-4">
+          <div
+className="
+rounded-3xl
+bg-gradient-to-br
+from-slate-900
+to-slate-800
+border
+border-white/10
+p-4
+shadow-lg
+"
+>
 
             <p className="font-bold text-brand-red">
-              ADMIN
+              Administrator
             </p>
 
             <p className="text-brand-red font-semibold text-sm">
@@ -215,7 +324,12 @@ export default function AdminLayout({
               onClick={logout}
               className="
                 mt-4 w-full flex items-center justify-center gap-2
-                bg-red-600 hover:bg-red-700
+                bg-brand-red
+hover:brightness-110
+active:scale-95
+transition-all
+duration-200
+shadow-lg
                 px-4 py-3 rounded-xl transition
               "
             >
@@ -230,7 +344,14 @@ export default function AdminLayout({
       </aside>
 
       {/* MAIN CONTENT */}
-      <main className="flex-1 md:ml-72 pt-16 md:pt-0 overflow-y-auto">
+      <main
+className="
+flex-1
+overflow-y-auto
+bg-slate-100
+lg:ml-72lg:ml-72
+"
+>
         {children}
       </main>
 

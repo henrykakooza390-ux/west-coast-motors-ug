@@ -1,10 +1,8 @@
-import { useState } from "react";
 import { useVehiclesContext } from "../context/VehiclesContext";
 import VehicleCard from "./VehicleCard";
 
 export default function FeaturedCars() {
   const { vehicles, loading } = useVehiclesContext();
-  const [, forceUpdate] = useState({});
 
   if (loading) {
     return (
@@ -70,7 +68,7 @@ export default function FeaturedCars() {
   <VehicleCard
     key={car.id}
     car={car}
-    forceUpdate={() => forceUpdate({})}
+    forceUpdate={() => {}}
   />
 ))}
 
